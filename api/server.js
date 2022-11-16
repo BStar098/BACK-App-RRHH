@@ -3,12 +3,14 @@ const db = require("./conf/db");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const models = require("./models");
-
+const routes = require("./routes");
 const server = express();
 
 server.use(morgan("tiny"));
 server.use(express.json());
 server.use(cookieParser());
+
+server.use("/api", routes);
 
 db.sync({ force: false }).then(() => {
   console.log("DB Conectada");
