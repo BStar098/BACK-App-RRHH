@@ -5,7 +5,7 @@ class Equipo extends S.Model {}
 
 Equipo.init(
   {
-    equipo: { type: S.STRING },
+    dependencia: { type: S.STRING },
     turno: { type: S.STRING },
   },
   {
