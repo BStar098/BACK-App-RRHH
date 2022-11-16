@@ -2,6 +2,7 @@ const morgan = require("morgan");
 const db = require("./conf/db");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const models = require("./models");
 
 const server = express();
 
