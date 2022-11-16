@@ -1,0 +1,38 @@
+{
+  "name": "back-app-rrhh",
+  "version": "1.0.0",
+  "description": "Back aplicacion para recursos humanos",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon api/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaMojica/BACK-App-RRHH.git"
+  },
+  "keywords": [
+    "RRHH"
+  ],
+  "author": "Santiago Lucero, Mauricio Ursino, Rafael Mojica, Juan Montanelli, Geronimo Zamora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaMojica/BACK-App-RRHH/issues"
+  },
+  "homepage": "https://github.com/RafaMojica/BACK-App-RRHH#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.25.6"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
+  }
+}
