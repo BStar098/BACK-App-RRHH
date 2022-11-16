@@ -4,8 +4,8 @@ const S = require("sequelize");
 
 const db = new S(
   process.env.DB_NAME,
-  JSON.parse(process.env.DB_USER),
-  JSON.parse(process.env.DB_PASS),
+  process.env.DB_USER || null,
+  process.env.DB_PASS || null,
   {
     host: process.env.SERVIDOR,
     dialect: process.env.DB,
