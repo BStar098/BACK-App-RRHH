@@ -11,7 +11,8 @@ server.use(cookieParser());
 
 db.sync({ force: false }).then(() => {
   console.log("DB Conectada");
-  server.listen(parseInt(process.env.PORT), () =>
-    console.log("Escuchando en el puerto" + process.env.PORT)
+  server.listen(
+    process.env.PORT,
+    console.log("Escuchando en el puerto", process.env.PORT)
   );
 });
