@@ -1,5 +1,5 @@
 const S = require("sequelize");
-const db = require("../conf/db");
+const db = require("../config/db");
 
 class Equipo extends S.Model {}
 
