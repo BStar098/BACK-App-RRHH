@@ -1,5 +1,5 @@
 const S = require("sequelize");
-const db = require("../conf/db");
+const db = require("../config/db");
 
 class Usuario extends S.Model {}
 
@@ -11,10 +11,10 @@ Usuario.init(
     documento: { type: S.INTEGER },
     telefono: { type: S.INTEGER },
     fechaDeNacimiento: { type: S.DATEONLY },
-    jerarquia: { type: S.INTEGER },
     tipo: { type: S.BOOLEAN },
     residencia: { type: S.STRING },
     eMail: { type: S.STRING },
+    contrasena: { type: S.STRING },
   },
   {
     sequelize: db,

@@ -1,5 +1,5 @@
 const S = require("sequelize");
-const db = require("../conf/db");
+const db = require("../config/db");
 
 class DatosLaborales extends S.Model {}
 
@@ -10,6 +10,7 @@ DatosLaborales.init(
     diasLaborales: { type: S.INTEGER },
     horariosLaborales: { type: S.STRING },
     observaciones: { type: S.TEXT },
+    jerarquia: { type: S.INTEGER },
   },
   {
     sequelize: db,
