@@ -5,10 +5,12 @@ const cookieParser = require("cookie-parser");
 const models = require("./models");
 const routes = require("./routes");
 const server = express();
+const cors = require("cors");
 
 server.use(morgan("tiny"));
 server.use(express.json());
 server.use(cookieParser());
+server.use(cors());
 
 server.use("/api", routes);
 
