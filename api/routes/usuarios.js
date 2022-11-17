@@ -1,6 +1,9 @@
 const express = require("express");
 const routesUsuarios = express();
-const { iniciarSesion, registrarUsuario } = require("../controllers/usuariosControllers");
+const {
+  iniciarSesion,
+  registrarUsuario,
+} = require("../controllers/usuariosControllers");
 const { validacionDeCreacion } = require("../validator/users");
 
 //Inicio de sesion de un usuario
