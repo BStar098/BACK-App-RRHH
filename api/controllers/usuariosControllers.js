@@ -1,22 +1,34 @@
 const { Usuarios } = require("../models");
 
-const iniciarSesion = async (req, res) => {
+const inicioSesion = async (req, res) => {
   try {
-    const id = req.params.id;
-    const usuario = await Usuarios.findOne({ where: { id } });
+    const { eMail } = req.body;
+    const usuario = await Usuarios.findOne({ where: { eMail } });
+
+    if(!usuario) throw "Usuario no registrado"
+
     res.send(usuario);
+
   } catch (error) {
-    res.sendStatus(401)
+    res.status(401).send(error)
   }
 };
 
-const registrarUsuario = async (req, res) => {
+const registroUsuario = async (req, res) => {
   try {
     const usuario = await Usuarios.create(req.body);
-    res.send(usuario);
+    res.status(201).send(usuario);
   } catch (error) {
-    res.resStatus(401)
+    res.sendStatus(501)
   }
 };
 
-module.exports = { iniciarSesion, registrarUsuario };
+const PersistenciaSesion = (req, res) => {
+
+}
+
+const cierreSesion = (req, res) => {
+
+}
+
+module.exports = { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion };
