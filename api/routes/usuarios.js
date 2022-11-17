@@ -1,8 +1,12 @@
 const express = require("express");
 const routesUsuarios = express();
-const usuarioController = require("../controllers/usuariosControllers");
+const { iniciarSesion, registrarUsuario } = require("../controllers/usuariosControllers");
+const { validacionDeCreacion } = require("../validator/users");
 
-routesUsuarios.get("/iniciarsesion", usuarioController.iniciarSesion);
-routesUsuarios.post("/registrarse", usuarioController.registrarUsuario);
+//Inicio de sesion de un usuario
+routesUsuarios.get("/:id", iniciarSesion);
+
+//Registrar un nuevo usuario
+routesUsuarios.post("/", registrarUsuario);
 
 module.exports = routesUsuarios;

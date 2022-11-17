@@ -2,11 +2,11 @@ const { Usuarios } = require("../models");
 
 const iniciarSesion = async (req, res) => {
   try {
-    const { eMail } = req.body;
-    const usuario = await Usuarios.findOne({ where: { eMail } });
+    const id = req.params.id;
+    const usuario = await Usuarios.findOne({ where: { id } });
     res.send(usuario);
   } catch (error) {
-    console.error(error);
+    res.sendStatus(401)
   }
 };
 
@@ -15,7 +15,7 @@ const registrarUsuario = async (req, res) => {
     const usuario = await Usuarios.create(req.body);
     res.send(usuario);
   } catch (error) {
-    console.error(error);
+    res.resStatus(401)
   }
 };
 
