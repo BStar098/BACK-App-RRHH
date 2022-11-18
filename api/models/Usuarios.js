@@ -6,15 +6,15 @@ class Usuario extends S.Model {}
 
 Usuario.init(
   {
+    tipo: { type: S.BOOLEAN, defaultValue: false },
     nombre: { type: S.STRING },
     apellido: { type: S.STRING },
     domicilio: { type: S.STRING },
-    documento: { type: S.INTEGER },
+    documento: { type: S.BIGINT },
     telefono: { type: S.BIGINT },
     fechaDeNacimiento: { type: S.DATEONLY },
-    tipo: { type: S.BOOLEAN, defaultValue: false },
-    residencia: { type: S.STRING },
-    eMail: { type: S.STRING },
+    nacionalidad: { type: S.STRING },
+    eMail: { type: S.TEXT },
     contrasena: { type: S.STRING },
     salt: { type: S.STRING },
   },
