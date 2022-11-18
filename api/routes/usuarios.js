@@ -1,13 +1,13 @@
 const express = require("express");
 const routesUsuarios = express();
 const { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion } = require("../controllers/usuariosControllers");
-const { validacionDeCreacionUsuario } = require("../validator/users");
-
-//Inicio de sesion de un usuario
-routesUsuarios.post("/iniciosesion", inicioSesion);
+const { validacionRegistro, validacionInicioSesion } = require("../validator/users");
 
 //Registrar un nuevo usuario
-routesUsuarios.post("/registro", registroUsuario);
+routesUsuarios.post("/registro", validacionRegistro, registroUsuario);
+
+//Inicio de sesion de un usuario
+routesUsuarios.post("/iniciosesion", validacionInicioSesion, inicioSesion);
 
 //Persistencia de sesion
 routesUsuarios.get("/me", PersistenciaSesion)
