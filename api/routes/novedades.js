@@ -1,15 +1,10 @@
 const express = require("express");
-const {
-  crearNovedades,
-  traerNovedades,
-  actualizarNovedad,
-  historialNovedadesUsuario,
-} = require("../controllers/novedadesControllers");
 const routesNovedades = express();
-const { validacionDeNovedades } = require("../validator/novedades");
+const { crearNovedades, traerNovedades, actualizarNovedad, historialNovedadesUsuario } = require("../controllers/novedadesControllers");
+const { validacionCreacionNovedades } = require("../validator/novedades");
 
 //Crear una novedad
-routesNovedades.post("/", crearNovedades);
+routesNovedades.post("/", validacionCreacionNovedades, crearNovedades);
 
 //Traer Todas Las Novedades
 routesNovedades.get("/", traerNovedades);
@@ -18,6 +13,6 @@ routesNovedades.get("/", traerNovedades);
 routesNovedades.get("/:idUsuario", historialNovedadesUsuario);
 
 //Actualizar Novedad
-routesNovedades.put("/:id", actualizarNovedad);
+routesNovedades.put("/:idNovedad", actualizarNovedad);
 
 module.exports = routesNovedades;
