@@ -2,13 +2,11 @@ const { generadorToken, validacionToken } = require("../config/token");
 const { Usuarios } = require("../models");
 
 const registroUsuario = async (req, res) => {
-  console.log(req.body);
   try {
     const usuario = await Usuarios.create(req.body);
     res.status(201).send(usuario);
   } catch (error) {
-    console.log("Entro al catch de los controler");
-    res.sendStatus(501)
+    res.status(400).send(error)
   }
 };
 
@@ -32,10 +30,10 @@ const inicioSesion = async (req, res) => {
         
     const token = generadorToken(payload)
     res.cookie("token", token);
-    res.status(200).send(payload)
+    res.send(payload)
 
   } catch (error) {
-    res.status(401).send(error)
+    res.status(400).send(error)
   }
 };
 
