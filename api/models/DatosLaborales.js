@@ -8,7 +8,7 @@ DatosLaborales.init(
     fechaDeIngreso: { type: S.DATEONLY },
     puesto: { type: S.STRING },
     diasLaborales: { type: S.INTEGER },
-    horariosLaborales: { type: S.STRING },
+    horarioLaboral: { type: S.STRING },
     observaciones: { type: S.TEXT },
     jerarquia: { type: S.INTEGER },
   },

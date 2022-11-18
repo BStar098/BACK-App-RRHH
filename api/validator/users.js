@@ -60,8 +60,7 @@ const validacionRegistro = [
     .withMessage("El campo debe tener contenido")
     .isDate({format: 'YYYY-MM-DD'})
     .withMessage("El campo debe ser una fecha YYYY-MM-DD"),
-  check("tipo"),
-  check("residencia")
+  check("nacionalidad")
     .exists()
     .withMessage("El campo debe existir")
     .not()
