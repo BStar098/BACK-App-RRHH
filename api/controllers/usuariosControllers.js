@@ -17,7 +17,7 @@ const inicioSesion = async (req, res) => {
 
     if(!usuario) throw "Usuario no registrado"
 
-    const validacionConstrasena = usuario.validacionConstrasena(contrasena)
+    const validacionConstrasena = await usuario.validacionConstrasena(contrasena)
     
     if (!validacionConstrasena) throw "Contraseña incorrecta"
 
