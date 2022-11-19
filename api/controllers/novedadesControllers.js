@@ -5,6 +5,7 @@ const crearNovedades = async (req, res) => {
     const { eMail } = req.body;
     const novedad = await Novedades.create(req.body);
     const usuario = await Usuarios.findOne({ where: { eMail } });
+    console.log(novedad);
     usuario.addNovedades(novedad);
     res.status(201).send(novedad);
   } catch (error) {
@@ -24,7 +25,10 @@ const traerNovedades = async (req, res) => {
 const historialNovedadesUsuario = async (req, res) => {
   try {
     const id = req.params.idUsuario;
-    const usuarioYNovedades = await Usuarios.findOne({ where: { id }, include: { model: Novedades } });
+    const usuarioYNovedades = await Usuarios.findOne({
+      where: { id },
+      include: { model: Novedades },
+    });
     res.send(usuarioYNovedades);
   } catch (error) {
     res.status(400).send(error);
@@ -34,14 +38,22 @@ const historialNovedadesUsuario = async (req, res) => {
 const actualizarNovedad = async (req, res) => {
   try {
     const id = req.params.idNovedad;
-    const novedadActualizada = await Novedades.update(req.body, { where: { id }, returning: true });
+    const novedadActualizada = await Novedades.update(req.body, {
+      where: { id },
+      returning: true,
+    });
 
     if (!novedadActualizada[1][0]) throw "La novedad no existe";
-    
+
     res.send(novedadActualizada[1][0]);
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-module.exports = { crearNovedades, traerNovedades, historialNovedadesUsuario, actualizarNovedad };
+module.exports = {
+  crearNovedades,
+  traerNovedades,
+  historialNovedadesUsuario,
+  actualizarNovedad,
+};
