@@ -25,6 +25,11 @@ const inicioSesion = async (req, res) => {
       id: usuario.id,
       nombre: usuario.nombre,
       apellido: usuario.apellido,
+      domicilio: usuario.domicilio,
+      documento: usuario.documento,
+      telefono: usuario.telefono,
+      fechaDeNacimiento: usuario.fechaDeNacimiento,
+      telefono: usuario.telefono,
       eMail: usuario.eMail,
     };
         
