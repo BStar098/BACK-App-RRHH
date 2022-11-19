@@ -1,6 +1,11 @@
 const express = require("express");
 const routesNovedades = express();
-const { crearNovedades, traerNovedades, actualizarNovedad, historialNovedadesUsuario } = require("../controllers/novedadesControllers");
+const {
+  crearNovedades,
+  traerNovedades,
+  actualizarNovedad,
+  historialNovedadesUsuario,
+} = require("../controllers/novedadesControllers");
 const { validacionCreacionNovedades } = require("../validator/novedades");
 
 //Crear una novedad
