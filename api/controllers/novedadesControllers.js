@@ -5,7 +5,6 @@ const crearNovedades = async (req, res) => {
     const { eMail } = req.body;
     const novedad = await Novedades.create(req.body);
     const usuario = await Usuarios.findOne({ where: { eMail } });
-    console.log(novedad);
     usuario.addNovedades(novedad);
     res.status(201).send(novedad);
   } catch (error) {

@@ -6,7 +6,10 @@ const {
   actualizarNovedad,
   historialNovedadesUsuario,
 } = require("../controllers/novedadesControllers");
-const { validacionCreacionNovedades } = require("../validator/novedades");
+const {
+  validacionCreacionNovedades,
+  validacionActualizacionNovedad,
+} = require("../validator/novedades");
 
 //Crear una novedad
 routesNovedades.post("/", validacionCreacionNovedades, crearNovedades);
@@ -18,6 +21,10 @@ routesNovedades.get("/", traerNovedades);
 routesNovedades.get("/:idUsuario", historialNovedadesUsuario);
 
 //Actualizar Novedad
-routesNovedades.put("/:idNovedad", actualizarNovedad);
+routesNovedades.put(
+  "/:idNovedad",
+  validacionActualizacionNovedad,
+  actualizarNovedad
+);
 
 module.exports = routesNovedades;
