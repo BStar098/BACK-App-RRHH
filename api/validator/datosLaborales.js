@@ -26,8 +26,6 @@ const validacionCreacionDatosLaborales = [
     .not()
     .isEmpty()
     .withMessage("El campo no puede estar vacio")
-    .contains()
-    .withMessage("El campo debe tener contenido")
     .isNumeric()
     .withMessage("El campo debe ser numerico"),
   check("horarioLaboral")
