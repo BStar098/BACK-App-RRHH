@@ -1,19 +1,23 @@
-const DatosLaborales = require("../models/DatosLaborales");
-const Equipos = require("../models/Equipos");
-const Novedades = require("../models/Novedades");
-const Oficinas = require("../models/Oficinas");
-const Usuarios = require("../models/Usuarios");
+const DatosLaborales = require("./DatosLaborales");
+const Equipo = require("./Equipos");
+const Novedad = require("./Novedades");
+const Oficina = require("./Oficinas");
+const Usuarios = require("./Usuarios");
+const Asistencia = require("./Asistencias");
 
-Usuarios.belongsTo(DatosLaborales);
-DatosLaborales.hasMany(Usuarios);
+Usuarios.hasOne(DatosLaborales);
+DatosLaborales.belongsTo(Usuarios);
 
-Usuarios.belongsToMany(Novedades, { through: "historial" });
-Novedades.belongsToMany(Usuarios, { through: "historial" });
+Usuarios.hasMany(Novedad);
+Novedad.belongsTo(Usuarios);
 
-Usuarios.belongsTo(Equipos);
-Equipos.hasMany(Usuarios);
+Equipo.hasMany(Usuarios);
+Usuarios.belongsTo(Equipo);
 
-Equipos.belongsTo(Oficinas);
-Oficinas.hasMany(Equipos);
+Oficina.hasMany(Equipo); 
+Equipo.belongsTo(Oficina);
 
-module.exports = { DatosLaborales, Equipos, Novedades, Oficinas, Usuarios };
+Usuarios.hasMany(Asistencia);
+Asistencia.belongsTo(Usuarios);
+
+module.exports = { DatosLaborales, Equipo, Novedad, Oficina, Usuarios, Asistencia };
