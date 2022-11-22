@@ -1,5 +1,5 @@
 const { generadorToken, validacionToken } = require("../config/token");
-const { Usuarios, DatosLaborales, Novedades } = require("../models");
+const { Usuarios, DatosLaborales, Equipo } = require("../models");
 
 const registroUsuario = async (req, res) => {
   try {
@@ -27,11 +27,6 @@ const inicioSesion = async (req, res) => {
       id: usuario.id,
       nombre: usuario.nombre,
       apellido: usuario.apellido,
-      domicilio: usuario.domicilio,
-      documento: usuario.documento,
-      telefono: usuario.telefono,
-      fechaDeNacimiento: usuario.fechaDeNacimiento,
-      telefono: usuario.telefono,
       eMail: usuario.eMail,
     };
 
@@ -56,6 +51,20 @@ const cierreSesion = (req, res) => {
   res.sendStatus(204);
 };
 
+const usuarioParticular = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const usuarioYDatosLaborales = await Usuarios.findOne({
+      where: { id },
+      include: [{ model: DatosLaborales, as: "usuarios"}],
+      returning: true,
+    });
+    res.send(usuarioYDatosLaborales);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 const TraerUsuarios = async (req, res) => {
   try {
     const totalUsuarios = await Usuarios.findAll({
@@ -67,24 +76,5 @@ const TraerUsuarios = async (req, res) => {
     res.status(400).send(error);
   }
 };
-const usuarioParticular = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const usuarioYDatosLaborales = await Usuarios.findOne({
-      where: { id },
-      include: { model: DatosLaborales },
-      returning: true,
-    });
-    res.send(usuarioYDatosLaborales);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
-module.exports = {
-  inicioSesion,
-  registroUsuario,
-  PersistenciaSesion,
-  cierreSesion,
-  TraerUsuarios,
-  usuarioParticular,
-};
+
+module.exports = { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, TraerUsuarios, usuarioParticular };
