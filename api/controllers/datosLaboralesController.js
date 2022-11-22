@@ -3,9 +3,14 @@ const { DatosLaborales, Usuarios } = require("../models");
 const crearDatosLaborales = async (req, res) => {
   try {
     const { eMail } = req.body;
-    const datos = await DatosLaborales.create(req.body);
+
     const usuario = await Usuarios.findOne({ where: { eMail } });
-    datos.addUsuarios(usuario);
+    if (!usuario) throw "Usuario no registrado";
+    
+    const datos = await DatosLaborales.create(req.body);
+    if (!datos) throw "Datos laborales no existen";
+    
+    datos.setUsuario(usuario);
     res.status(201).send(datos);
   } catch (error) {
     res.status(400).send(error);
