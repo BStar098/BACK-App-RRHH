@@ -3,7 +3,7 @@ const { crearDatosLaborales, actualizarDatosLaborales } = require("../controller
 const routesDatosLaborales = express();
 
 //Crear Datos Laborales
-routesDatosLaborales.post("/", crearDatosLaborales);                                  //ESTA ESTA BIEN ARREGLAR EL BUG DE JERARQUIA (HOOK)
+routesDatosLaborales.post("/", crearDatosLaborales);
 
 //actualizar Datos Laborales de Un Usuario
 routesDatosLaborales.put("/:idDatosLaborales", actualizarDatosLaborales);

@@ -1,4 +1,4 @@
-const { Equipo, Usuarios } = require("../models");
+const { Equipo, Usuarios, Oficina, DatosLaborales } = require("../models");
 
 const crearEquipo = async (req, res) => {
   try {
@@ -16,4 +16,16 @@ const crearEquipo = async (req, res) => {
   }
 };
 
-module.exports = { crearEquipo };
+const trearEquipoPais = async (req, res) => {
+  try {
+    const { pais } = req.body
+    const UsuarioPais = await Oficina.findAll({where: { pais }, include: [{ model: Equipo, include: Usuarios }]})
+    if (!UsuarioPais) throw "No existe oficinas en este pais";
+
+    res.send(UsuarioPais)
+  } catch (error) {
+    res.status(400).send(error);
+  }  
+}
+
+module.exports = { crearEquipo, trearEquipoPais };

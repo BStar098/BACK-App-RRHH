@@ -1,9 +1,9 @@
 const express = require("express");
 const routesUsuarios = express();
-const { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, usuarioParticular, TraerUsuarios } = require("../controllers/usuariosControllers");
+const { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, usuarioParticular, actualizarPerfil } = require("../controllers/usuariosControllers");
 
 //Registrar un nuevo usuario
-routesUsuarios.post("/registro", registroUsuario);                               //SALIO BIEN
+routesUsuarios.post("/registro", registroUsuario);
 
 //Inicio de sesion de un usuario
 routesUsuarios.post("/iniciosesion", inicioSesion);
@@ -14,11 +14,11 @@ routesUsuarios.get("/me", PersistenciaSesion);
 //Cerrar Sesion
 routesUsuarios.get("/cierresesion", cierreSesion);
 
-//Traer Usuario-DatosLaborales-Equipo-Oficinas Particular
-routesUsuarios.get("/:id", usuarioParticular);
+//Traer Perfil completo usuario
+routesUsuarios.get("/uno", usuarioParticular);
 
-// Traer Usuarios
-routesUsuarios.get("/", TraerUsuarios);
+// Actualizar Perfil usuario
+routesUsuarios.put("/:idUsuario", actualizarPerfil);
 
 
 module.exports = routesUsuarios;
