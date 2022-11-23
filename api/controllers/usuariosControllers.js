@@ -1,8 +1,13 @@
 const { generadorToken, validacionToken } = require("../config/token");
-const { Usuarios, DatosLaborales, Equipo } = require("../models");
+const { Usuarios, DatosLaborales, Equipo, Oficina } = require("../models");
+const { perfilUsuario } = require("../utils/perfiles");
 
 const registroUsuario = async (req, res) => {
   try {
+    const { eMail } = req.body
+    const concidenciaUsuario = await Usuarios.findOne({ where: { eMail } })
+    if (concidenciaUsuario) throw "Usuario ya registrado";
+
     const usuario = await Usuarios.create(req.body);
     res.status(201).send(usuario);
   } catch (error) {
@@ -14,13 +19,9 @@ const inicioSesion = async (req, res) => {
   try {
     const { eMail, contrasena } = req.body;
     const usuario = await Usuarios.findOne({ where: { eMail } });
-
     if (!usuario) throw "Usuario no registrado";
 
-    const validacionConstrasena = await usuario.validacionConstrasena(
-      contrasena
-    );
-
+    const validacionConstrasena = await usuario.validacionConstrasena(contrasena);
     if (!validacionConstrasena) throw "Contraseña incorrecta";
 
     const payload = {
@@ -53,28 +54,30 @@ const cierreSesion = (req, res) => {
 
 const usuarioParticular = async (req, res) => {
   try {
-    const id = req.params.id;
-    const usuarioYDatosLaborales = await Usuarios.findOne({
-      where: { id },
-      include: [{ model: DatosLaborales, as: "usuarios"}],
-      returning: true,
-    });
-    res.send(usuarioYDatosLaborales);
+    const { eMail } = req.body;
+    const usuarioYDatosLaborales = await Usuarios.findOne({ where: { eMail }, 
+      include: [
+        { model: DatosLaborales },
+        { model: Equipo, include: Oficina },
+      ], returning: true });
+    if (!usuarioYDatosLaborales) throw "Usuario no registrado";
+      
+    res.send(perfilUsuario(usuarioYDatosLaborales));
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-const TraerUsuarios = async (req, res) => {
+const actualizarPerfil = async (req, res) => {
   try {
-    const totalUsuarios = await Usuarios.findAll({
-      include: { model: DatosLaborales },
-      returning: true,
-    });
-    res.send(totalUsuarios);
+    const id = req.params.idUsuario;
+    const perfilActualizado = await Usuarios.update(req.body, { where: { id }, returning: true });
+    if (!perfilActualizado[1][0]) throw "El perfil no existe";
+
+    res.send(perfilActualizado[1][0]);
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-module.exports = { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, TraerUsuarios, usuarioParticular };
+module.exports = { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, actualizarPerfil, usuarioParticular };
