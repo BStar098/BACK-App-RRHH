@@ -5,6 +5,7 @@ const crearNovedades = async (req, res) => {
     const { eMail } = req.body;
     const novedad = await Novedad.create(req.body);
     const usuario = await Usuarios.findOne({ where: { eMail } });
+<<<<<<< Updated upstream
 
     if (!usuario) throw "Usuario no registrado";
 
@@ -12,6 +13,13 @@ const crearNovedades = async (req, res) => {
     res.status(201).send(novedad);
   } catch (error) {
     res.status(400).send(error);
+=======
+    usuario.addNovedades(novedadUsuario);
+    console.log(novedadUsuario);
+    res.status(201).send(novedadUsuario);
+  } catch (error) {
+    res.send(error);
+>>>>>>> Stashed changes
   }
 };
 
