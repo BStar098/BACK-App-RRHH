@@ -3,10 +3,11 @@ const { Usuarios, Novedad } = require("../models");
 const crearNovedades = async (req, res) => {
   try {
     const { eMail } = req.body;
-    const novedad = await Novedad.create(req.body);
     const usuario = await Usuarios.findOne({ where: { eMail } });
-
     if (!usuario) throw "Usuario no registrado";
+
+    const novedad = await Novedad.create(req.body);
+    if (!novedad) throw "Datos novedad no existen";
 
     usuario.addNovedades(novedad);
     res.status(201).send(novedad);
@@ -15,10 +16,13 @@ const crearNovedades = async (req, res) => {
   }
 };
 
-const traerNovedades = async (req, res) => {
+const traerNovedad = async (req, res) => {
   try {
-    const totalNovedades = await Novedad.findAll();
-    res.send(totalNovedades);
+    const id = req.params.idNovedad;
+    const novedad = await Novedad.findByPk(id);
+    if (!novedad) throw "Novedad no existente";
+
+    res.send(novedad);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -27,10 +31,9 @@ const traerNovedades = async (req, res) => {
 const historialNovedadesUsuario = async (req, res) => {
   try {
     const id = req.params.idUsuario;
-    const usuarioYNovedades = await Usuarios.findOne({
-      where: { id },
-      include: { model: Novedad },
-    });
+    const usuarioYNovedades = await Usuarios.findOne({ where: { id }, include: { model: Novedad }});
+    if (!usuarioYNovedades) throw "Usuario no registrado";
+
     res.send(usuarioYNovedades);
   } catch (error) {
     res.status(400).send(error);
@@ -40,11 +43,7 @@ const historialNovedadesUsuario = async (req, res) => {
 const actualizarNovedad = async (req, res) => {
   try {
     const id = req.params.idNovedad;
-    const novedadActualizada = await Novedad.update(req.body, {
-      where: { id },
-      returning: true,
-    });
-
+    const novedadActualizada = await Novedad.update(req.body, { where: { id }, returning: true });
     if (!novedadActualizada[1][0]) throw "La novedad no existe";
 
     res.send(novedadActualizada[1][0]);
@@ -53,9 +52,4 @@ const actualizarNovedad = async (req, res) => {
   }
 };
 
-module.exports = {
-  crearNovedades,
-  traerNovedades,
-  historialNovedadesUsuario,
-  actualizarNovedad,
-};
+module.exports = { crearNovedades, traerNovedad, historialNovedadesUsuario, actualizarNovedad };
