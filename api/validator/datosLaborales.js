@@ -19,7 +19,18 @@ const validacionCreacionDatosLaborales = [
     .isEmpty()
     .withMessage("El campo no puede estar vacio")
     .contains()
-    .withMessage("El campo debe tener contenido"),
+    .withMessage("El campo debe tener contenido")
+    .isIn([
+      "empleado",
+      "coordinador regional",
+      "jefe pais",
+      "jefe regional ",
+      "gerente pais",
+      "_rrhh pais ",
+      "gerente regional",
+      "gerente general",
+    ])
+    .withMessage("Puesto no existente"),
   check("diasLaborales")
     .exists()
     .withMessage("El campo debe existir")
