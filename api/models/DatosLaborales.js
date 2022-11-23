@@ -23,39 +23,20 @@ DatosLaborales.init(
     modelName: "datosLaborales",
   }
 );
-
 //HOOKS
 DatosLaborales.addHook("beforeCreate", (datosLaborales, options) => {
-  const datos = datosLaborales.puesto;
-  switch (datos) {
-    case "empleado":
-      datosLaborales.jerarquia = 8;
-      break;
-    case "coordinador regional":
-      datosLaborales.jerarquia = 7;
-      break;
-    case "jefe pais":
-      datosLaborales.jerarquia = 6;
-      break;
-    case "jefe regional":
-      datosLaborales.jerarquia = 5;
-      break;
-    case "gerente pais":
-      datosLaborales.jerarquia = 4;
-      break;
-    case "rrhh pais":
-      datosLaborales.jerarquia = 3;
-      break;
-    case "gerente regioanal":
-      datosLaborales.jerarquia = 2;
-      break;
-    case "gerente general":
-      datosLaborales.jerarquia = 1;
-      break;
-    default:
-      datosLaborales.jerarquia = 0;
-      break;
-  }
+  const JERARQUIA = {
+    "gerente general": (datosLaborales.jerarquia = 1),
+    "gerente regional": (datosLaborales.jerarquia = 2),
+    "rrhh pais": (datosLaborales.jerarquia = 3),
+    "gerente pais": (datosLaborales.jerarquia = 4),
+    "jefe regional": (datosLaborales.jerarquia = 5),
+    "jefe pais": (datosLaborales.jerarquia = 6),
+    "coordinador regional": (datosLaborales.jerarquia = 7),
+    empleado: (datosLaborales.jerarquia = 8),
+  };
+  const asignarNumero = JERARQUIA[datosLaborales.puesto];
+  return (datosLaborales.jerarquia = asignarNumero);
 });
 
 module.exports = DatosLaborales;
