@@ -26,14 +26,14 @@ DatosLaborales.init(
 //HOOKS
 DatosLaborales.addHook("beforeCreate", (datosLaborales, options) => {
   const JERARQUIA = {
-    "gerente general": (datosLaborales.jerarquia = 1),
-    "gerente regional": (datosLaborales.jerarquia = 2),
-    "rrhh pais": (datosLaborales.jerarquia = 3),
-    "gerente pais": (datosLaborales.jerarquia = 4),
-    "jefe regional": (datosLaborales.jerarquia = 5),
-    "jefe pais": (datosLaborales.jerarquia = 6),
-    "coordinador regional": (datosLaborales.jerarquia = 7),
-    empleado: (datosLaborales.jerarquia = 8),
+    "gerente general": 1,
+    "gerente regional": 2,
+    "rrhh pais": 3,
+    "gerente pais": 4,
+    "jefe regional": 5,
+    "jefe pais": 6,
+    "coordinador regional": 7,
+    empleado: 8,
   };
   const asignarNumero = JERARQUIA[datosLaborales.puesto];
   return (datosLaborales.jerarquia = asignarNumero);
