@@ -13,7 +13,6 @@ Usuario.init(
     documento: { type: S.BIGINT },
     telefono: { type: S.BIGINT },
     fechaDeNacimiento: { type: S.DATEONLY },
-    nacionalidad: { type: S.STRING },
     eMail: { type: S.TEXT },
     contrasena: { type: S.STRING },
     salt: { type: S.STRING },

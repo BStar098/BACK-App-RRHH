@@ -6,7 +6,6 @@ const models = require("./models");
 const routes = require("./routes");
 const cors = require("cors");
 
-
 const server = express();
 
 server.use(morgan("tiny"));

@@ -10,9 +10,10 @@ const validacionCreacionNovedades = [
     .withMessage("El campo no puede estar vacio")
     .contains()
     .withMessage("El campo debe tener contenido")
-    .isIn(['Licencia no justificada', 
-      'Licencia Vacaciones', 
-      "Retiro Fuera de Horario", 
+    .isIn([
+      "Licencia no justificada",
+      "Licencia Vacaciones",
+      "Retiro Fuera de Horario",
       "Ingreso Fuera de Horario",
       "Llegada Tarde",
       "Ausencia con Aviso",
@@ -25,11 +26,31 @@ const validacionCreacionNovedades = [
       "Licencia por enfermedad",
       "Guardia",
       "Licencia Estudio",
-      "Horas Nocturnidad" ])
+      "Horas Nocturnidad",
+    ])
     .withMessage("Novedad no existente"),
   (req, res, next) => {
     validacionResultado(req, res, next);
   },
 ];
 
-module.exports = { validacionCreacionNovedades };
+const validacionActualizacionNovedad = [
+  check("estado")
+    .exists()
+    .withMessage("El campo debe existir")
+    .not()
+    .isEmpty()
+    .withMessage("El campo no puede estar vacio")
+    .contains()
+    .withMessage("El campo debe tener contenido")
+    .isIn(["aprobado", "rechazado"])
+    .withMessage("Estado no determinado"),
+  (req, res, next) => {
+    validacionResultado(req, res, next);
+  },
+];
+
+module.exports = {
+  validacionCreacionNovedades,
+  validacionActualizacionNovedad,
+};
