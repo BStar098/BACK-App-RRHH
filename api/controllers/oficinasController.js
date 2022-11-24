@@ -7,7 +7,7 @@ const crearOficina = async (req, res) => {
     if (validacionOficina) throw "Oficina ya registrada";
 
     const oficina = await Oficina.create(req.body);
-    
+
     res.status(201).send(oficina);
   } catch (error) {
     res.status(400).send(error);
@@ -17,8 +17,10 @@ const crearOficina = async (req, res) => {
 const actualizarOficina = async (req, res) => {
   try {
     const id = req.params.idOficina;
+    const validacionOficina = await Oficina.findByPk(id)
+    if(!validacionOficina) throw "Oficina no existe"
+
     const oficnaActualizada = await Oficina.update(req.body, { where: { id }, returning: true });
-    if (!oficnaActualizada[1][0]) throw "La oficina no existe";
 
     res.send(oficnaActualizada[1][0]);
   } catch (error) {

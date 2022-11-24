@@ -58,12 +58,14 @@ const cierreSesion = (req, res) => {
 const usuarioParticular = async (req, res) => {
   try {
     const id = req.params.IdUsuario;
-    const usuarioYDatosLaborales = await Usuarios.findOne({ where: { id }, 
-      include: [
+    const usuarioYDatosLaborales = await Usuarios.findByPk(id, 
+      {
+        include: [
         { model: DatosLaborales },
         { model: Equipo },
         { model: Oficina },
-      ], returning: true });
+      ]
+    });
     if (!usuarioYDatosLaborales) throw "Usuario no registrado";
       
     res.send(perfilUsuario(usuarioYDatosLaborales));
@@ -75,8 +77,10 @@ const usuarioParticular = async (req, res) => {
 const actualizarPerfil = async (req, res) => {
   try {
     const id = req.params.idUsuario;
+    const validacionUsuario = await Usuarios.findByPk(id)
+    if(!validacionUsuario) throw "Usuario no existe"
+
     const perfilActualizado = await Usuarios.update(req.body, { where: { id }, returning: true });
-    if (!perfilActualizado[1][0]) throw "El perfil no existe";
 
     res.send(perfilActualizado[1][0]);
   } catch (error) {

@@ -7,7 +7,7 @@ const crearEquipo = async (req, res) => {
     if (validacionEquipo) throw "Equipo ya registrada";
 
     const equipo = await Equipo.create(req.body);
-    
+
     res.status(201).send(equipo);
   } catch (error) {
     res.status(400).send(error);
@@ -17,8 +17,11 @@ const crearEquipo = async (req, res) => {
 const actualizarEquipo = async (req, res) => {
   try {
     const id = req.params.idEquipo;
+
+    const validacionEquipo = await Equipo.findByPk(id)
+    if(!validacionEquipo) throw "Equipo no existe"
+
     const equipoActualizada = await Equipo.update(req.body, { where: { id }, returning: true });
-    if (!equipoActualizada[1][0]) throw "El equipo no existe";
 
     res.send(equipoActualizada[1][0]);
   } catch (error) {

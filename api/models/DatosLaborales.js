@@ -6,13 +6,7 @@ class DatosLaborales extends S.Model {}
 DatosLaborales.init(
   {
     fechaDeIngreso: { type: S.DATEONLY },
-    puesto: {
-      type: S.STRING,
-      get() {
-        const data = this.getDataValue("puesto");
-        return data.toLowerCase();
-      },
-    },
+    puesto: { type: S.STRING },
     diasLaborales: { type: S.STRING },
     horarioLaboral: { type: S.STRING },
     turno: { type: S.STRING },
