@@ -7,6 +7,7 @@ class Usuario extends S.Model {}
 Usuario.init(
   {
     tipo: { type: S.BOOLEAN, defaultValue: false },
+    activo: {type: S.BOOLEAN, defaultValue: false },
     nombre: { type: S.STRING },
     apellido: { type: S.STRING },
     domicilio: { type: S.STRING },

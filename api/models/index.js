@@ -14,8 +14,8 @@ Novedad.belongsTo(Usuarios);
 Equipo.hasMany(Usuarios);
 Usuarios.belongsTo(Equipo);
 
-Oficina.hasMany(Equipo); 
-Equipo.belongsTo(Oficina);
+Oficina.hasMany(Usuarios); 
+Usuarios.belongsTo(Oficina);
 
 Usuarios.hasMany(Asistencia);
 Asistencia.belongsTo(Usuarios);

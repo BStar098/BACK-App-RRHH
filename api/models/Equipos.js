@@ -5,8 +5,7 @@ class Equipo extends S.Model {}
 
 Equipo.init(
   {
-    dependencia: { type: S.STRING },
-    turno: { type: S.STRING },
+    nombre: { type: S.STRING },
   },
   {
     sequelize: db,

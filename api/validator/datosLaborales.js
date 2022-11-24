@@ -26,9 +26,10 @@ const validacionCreacionDatosLaborales = [
       "jefe pais",
       "jefe regional ",
       "gerente pais",
-      "_rrhh pais ",
+      "rrhh pais ",
       "gerente regional",
       "gerente general",
+      "coordinador pais",
     ])
     .withMessage("Puesto no existente"),
   check("diasLaborales")

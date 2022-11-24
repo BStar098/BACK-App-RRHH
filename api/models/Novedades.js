@@ -10,6 +10,7 @@ Novedad.init(
     fechaDeInicio: { type: S.DATEONLY },
     fechaDeFin: { type: S.DATEONLY },
     cantidadDias: { type: S.INTEGER },
+    cantidadHoras: { type: S.INTEGER },
     observacion: { type: S.TEXT },
     certificado: { type: S.TEXT },
     estado: { type: S.STRING, defaultValue: "Pendiente" },
