@@ -30,10 +30,11 @@ const crearDatosLaborales = async (req, res) => {
 const actualizarDatosLaborales = async (req, res) => {
   try {
     const id = req.params.idDatosLaborales;
-    const datoLaboral = await DatosLaborales.findByPk(id);
-    if (!datoLaboral) throw "Dato Laboral no existente";
+    const validacionDatos = await DatosLaborales.findByPk(id)
+    if(!validacionDatos) throw "Dato laboral no existe"
 
     const datosActualizados = await DatosLaborales.update(req.body, { where: { id }, returning: true });
+
     res.send(datosActualizados[1][0]);
   } catch (error) {
     res.status(400).send(error);

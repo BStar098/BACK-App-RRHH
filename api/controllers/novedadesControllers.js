@@ -42,8 +42,11 @@ const historialNovedadesUsuario = async (req, res) => {
 const actualizarNovedad = async (req, res) => {
   try {
     const id = req.params.idNovedad;
+    const validacionNovedad = await Novedad.findByPk(id)
+    if(!validacionNovedad) throw "Novedad no existe"
+
+
     const novedadActualizada = await Novedad.update(req.body, { where: { id }, returning: true });
-    if (!novedadActualizada[1][0]) throw "La novedad no existe";
 
     res.send(novedadActualizada[1][0]);
   } catch (error) {
