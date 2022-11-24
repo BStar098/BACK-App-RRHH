@@ -5,7 +5,7 @@ const crearAsistencia = async (req, res) => {
   try {
     const asistencia = await Asistencia.create(datosAsistencia);
     asistencia.setUsuario(usuarioId);
-    res.send(asistencia)
+    res.send(asistencia);
   } catch (error) {
     throw new Error("No se ha podido crear la asistencia");
   }
@@ -14,8 +14,7 @@ const crearAsistencia = async (req, res) => {
 const historialDeAsistencias = async (req, res) => {
   try {
     const historial = await Asistencia.findAll({ where: req.body });
-    console.log(historial)
-    res.send(historial)
+    res.send(historial);
   } catch (error) {
     throw new Error("No se ha podido retornar el historial de asistencias");
   }
