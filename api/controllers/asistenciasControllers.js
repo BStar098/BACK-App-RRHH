@@ -1,4 +1,4 @@
-const { Asistencia, Usuarios } = require("../models");
+const { Asistencia } = require("../models");
 
 const crearAsistencia = async (req, res) => {
   const { usuarioId, datosAsistencia } = req.body;

@@ -9,6 +9,7 @@ const registroUsuario = async (req, res) => {
     if (concidenciaUsuario) throw "Usuario ya registrado";
 
     const usuario = await Usuarios.create(req.body);
+
     res.status(201).send(usuario);
   } catch (error) {
     res.status(400).send(error);
@@ -18,7 +19,7 @@ const registroUsuario = async (req, res) => {
 const inicioSesion = async (req, res) => {
   try {
     const { eMail, contrasena } = req.body;
-    const usuario = await Usuarios.findOne({ where: { eMail } });
+    const usuario = await Usuarios.findOne({ where: { eMail }});
     if (!usuario) throw "Usuario no registrado";
 
     const validacionConstrasena = await usuario.validacionConstrasena(contrasena);
@@ -26,6 +27,8 @@ const inicioSesion = async (req, res) => {
 
     const payload = {
       id: usuario.id,
+      idEquipo: usuario.equipoId,
+      idOficina: usuario.equipoId,
       nombre: usuario.nombre,
       apellido: usuario.apellido,
       eMail: usuario.eMail,
@@ -54,11 +57,12 @@ const cierreSesion = (req, res) => {
 
 const usuarioParticular = async (req, res) => {
   try {
-    const { eMail } = req.body;
-    const usuarioYDatosLaborales = await Usuarios.findOne({ where: { eMail }, 
+    const id = req.params.IdUsuario;
+    const usuarioYDatosLaborales = await Usuarios.findOne({ where: { id }, 
       include: [
         { model: DatosLaborales },
-        { model: Equipo, include: Oficina },
+        { model: Equipo },
+        { model: Oficina },
       ], returning: true });
     if (!usuarioYDatosLaborales) throw "Usuario no registrado";
       
