@@ -6,7 +6,7 @@ class Asistencia extends S.Model {}
 Asistencia.init(
   {
     check: { type: S.BOOLEAN },
-    fecha: { type: S.DATEONLY },
+    fecha: { type: S.STRING },
     horaDeIngreso: { type: S.STRING },
     horaDeSalida: { type: S.STRING },
   },
