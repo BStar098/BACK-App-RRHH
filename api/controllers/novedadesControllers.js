@@ -7,7 +7,6 @@ const crearNovedades = async (req, res) => {
     if (!usuario) throw "Usuario no registrado";
 
     const novedad = await Novedad.create(req.body);
-    if (!novedad) throw "Datos novedad no existen";
 
     usuario.addNovedades(novedad);
     res.status(201).send(novedad);

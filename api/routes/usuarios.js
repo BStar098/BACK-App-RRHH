@@ -15,7 +15,7 @@ routesUsuarios.get("/me", PersistenciaSesion);
 routesUsuarios.get("/cierresesion", cierreSesion);
 
 //Traer Perfil completo usuario
-routesUsuarios.get("/uno", usuarioParticular);
+routesUsuarios.get("/uno/:IdUsuario", usuarioParticular);
 
 // Actualizar Perfil usuario
 routesUsuarios.put("/:idUsuario", actualizarPerfil);

@@ -7,6 +7,7 @@ Oficina.init(
   {
     pais: { type: S.STRING },
     ciudad: { type: S.STRING },
+    direccion: {type: S.STRING}
   },
   {
     sequelize: db,

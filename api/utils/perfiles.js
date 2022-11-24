@@ -11,9 +11,9 @@ const perfilUsuario = (obj) => {
     datosLaborales: {
       fechaDeIngreso: obj.datosLaborale.fechaDeIngreso,
       puesto: obj.datosLaborale.puesto,
-      dependencia: obj.equipo.dependencia,
-      turno: obj.equipo.turno,
-      oficina: obj.equipo.oficina.pais,
+      equipo: obj.equipo.nombre,
+      turno: obj.datosLaborale.turno,
+      oficina: obj.oficina.pais,
       diasLaborales: obj.datosLaborale.diasLaborales,
       horarioLaboral: obj.datosLaborale.horarioLaboral,
       observaciones: obj.datosLaborale.observaciones,

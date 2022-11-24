@@ -15,6 +15,7 @@ DatosLaborales.init(
     },
     diasLaborales: { type: S.STRING },
     horarioLaboral: { type: S.STRING },
+    turno: { type: S.STRING },
     observaciones: { type: S.TEXT },
     jerarquia: { type: S.INTEGER },
   },
@@ -33,7 +34,8 @@ DatosLaborales.addHook("beforeCreate", (datosLaborales, options) => {
     "jefe regional": 5,
     "jefe pais": 6,
     "coordinador regional": 7,
-    empleado: 8,
+    "coordinador pais": 8,
+    "empleado": 9,
   };
   const asignarNumero = JERARQUIA[datosLaborales.puesto];
   return (datosLaborales.jerarquia = asignarNumero);
