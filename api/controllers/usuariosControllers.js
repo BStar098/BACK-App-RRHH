@@ -27,6 +27,7 @@ const inicioSesion = async (req, res) => {
 
     const payload = {
       id: usuario.id,
+      tipo: usuario.tipo,
       idEquipo: usuario.equipoId,
       idOficina: usuario.equipoId,
       nombre: usuario.nombre,
