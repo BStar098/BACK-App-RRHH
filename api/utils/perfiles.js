@@ -1,6 +1,8 @@
 const perfilUsuario = (obj) => {
   return {
     perfil: {
+      id: obj.id,
+      tipo: obj.tipo,
       nombreYapellido: `${obj.nombre} ${obj.apellido}`,
       domicilio: obj.domicilio,
       documento: obj.documento,
