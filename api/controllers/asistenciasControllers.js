@@ -2,12 +2,19 @@ const { Asistencia } = require("../models");
 
 const crearAsistencia = async (req, res) => {
   const { usuarioId, datosAsistencia } = req.body;
+  console.log(datosAsistencia);
   try {
-    const asistencia = await Asistencia.create(datosAsistencia);
-    asistencia.setUsuario(usuarioId);
-    res.send(asistencia);
+    if (
+      await Asistencia.verificarAsistencia(usuarioId, datosAsistencia.fecha)
+    ) {
+      res.sendStatus(401);
+    } else {
+      const asistencia = await Asistencia.create(datosAsistencia);
+      asistencia.setUsuario(usuarioId);
+      res.send(asistencia);
+    }
   } catch (error) {
-    throw new Error("No se ha podido crear la asistencia");
+    throw "No se ha podido crear la asistencia";
   }
 };
 
