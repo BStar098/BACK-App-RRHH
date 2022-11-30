@@ -1,4 +1,5 @@
-const { Equipo, Usuarios } = require("../models");
+const { Equipo, Usuarios, Oficina, DatosLaborales } = require("../models");
+const { filtroUsuarios } = require("../utils/filtros");
 
 const crearEquipo = async (req, res) => {
   try {
@@ -40,16 +41,18 @@ const traerEquipos = async (req, res) => {
   }
 };
 
-const traerEquipo = async (req, res) => {
+const integrantesEquipo = async (req, res) => {
   try {
     const id = req.params.idEquipo;
-    const equipoYusuarios = await Equipo.findOne({ where: { id }, include: { model: Usuarios }});
-    if (!equipoYusuarios) throw "Equipo no registrado";
+    const equipo = await Equipo.findByPk(id);
+    if (!equipo) throw "No existe esa equipo";
 
-    res.send(equipoYusuarios);
+    const usuarios = await Usuarios.findAll({ where: { equipoId:id }, include: [{ model: Oficina }, {model: DatosLaborales}]});
+
+    res.send(filtroUsuarios(usuarios));
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-module.exports = { crearEquipo, actualizarEquipo, traerEquipos, traerEquipo };
+module.exports = { crearEquipo, actualizarEquipo, traerEquipos, integrantesEquipo };
