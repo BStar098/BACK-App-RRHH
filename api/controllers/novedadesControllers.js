@@ -30,10 +30,12 @@ const traerNovedad = async (req, res) => {
 const historialNovedadesUsuario = async (req, res) => {
   try {
     const id = req.params.idUsuario;
-    const usuarioYNovedades = await Usuarios.findOne({ where: { id }, include: { model: Novedad }});
-    if (!usuarioYNovedades) throw "Usuario no registrado";
+    const usuario = await Usuarios.findByPk(id);
+    if (!usuario) throw "Usuario no existente";
 
-    res.send(usuarioYNovedades);
+    const novedades = await Novedad.findAll({ where: { usuarioId: id }});
+
+    res.send(novedades);
   } catch (error) {
     res.status(400).send(error);
   }

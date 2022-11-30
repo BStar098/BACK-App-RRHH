@@ -1,16 +1,16 @@
 const { generadorToken, validacionToken } = require("../config/token");
 const { Usuarios, DatosLaborales, Equipo, Oficina } = require("../models");
-const { perfilUsuario } = require("../utils/perfiles");
+const { perfilCompleto, perfil } = require("../utils/filtros");
 
 const registroUsuario = async (req, res) => {
   try {
-    const { eMail } = req.body
-    const concidenciaUsuario = await Usuarios.findOne({ where: { eMail } })
+    const { eMail } = req.body;
+    const concidenciaUsuario = await Usuarios.findOne({ where: { eMail } });
     if (concidenciaUsuario) throw "Usuario ya registrado";
 
     const usuario = await Usuarios.create(req.body);
 
-    res.status(201).send(usuario);
+    res.status(201).send(perfil(usuario));
   } catch (error) {
     res.status(400).send(error);
   }
@@ -19,14 +19,17 @@ const registroUsuario = async (req, res) => {
 const inicioSesion = async (req, res) => {
   try {
     const { eMail, contrasena } = req.body;
-    const usuario = await Usuarios.findOne({ where: { eMail }});
+    const usuario = await Usuarios.findOne({ where: { eMail } });
     if (!usuario) throw "Usuario no registrado";
 
-    const validacionConstrasena = await usuario.validacionConstrasena(contrasena);
+    const validacionConstrasena = await usuario.validacionConstrasena(
+      contrasena
+    );
     if (!validacionConstrasena) throw "Contraseña incorrecta";
 
     const payload = {
       id: usuario.id,
+      tipo: usuario.tipo,
       idEquipo: usuario.equipoId,
       idOficina: usuario.equipoId,
       nombre: usuario.nombre,
@@ -58,17 +61,16 @@ const cierreSesion = (req, res) => {
 const usuarioParticular = async (req, res) => {
   try {
     const id = req.params.IdUsuario;
-    const usuarioYDatosLaborales = await Usuarios.findByPk(id, 
-      {
-        include: [
+    const usuarioYDatosLaborales = await Usuarios.findByPk(id, {
+      include: [
         { model: DatosLaborales },
         { model: Equipo },
         { model: Oficina },
-      ]
+      ],
     });
     if (!usuarioYDatosLaborales) throw "Usuario no registrado";
-      
-    res.send(perfilUsuario(usuarioYDatosLaborales));
+
+    res.send(perfilCompleto(usuarioYDatosLaborales));
   } catch (error) {
     res.status(400).send(error);
   }
@@ -77,15 +79,25 @@ const usuarioParticular = async (req, res) => {
 const actualizarPerfil = async (req, res) => {
   try {
     const id = req.params.idUsuario;
-    const validacionUsuario = await Usuarios.findByPk(id)
-    if(!validacionUsuario) throw "Usuario no existe"
+    const validacionUsuario = await Usuarios.findByPk(id);
+    if (!validacionUsuario) throw "Usuario no existe";
 
-    const perfilActualizado = await Usuarios.update(req.body, { where: { id }, returning: true });
+    const perfilActualizado = await Usuarios.update(req.body, {
+      where: { id },
+      returning: true,
+    });
 
-    res.send(perfilActualizado[1][0]);
+    res.send(perfil(perfilActualizado[1][0]));
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-module.exports = { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, actualizarPerfil, usuarioParticular };
+module.exports = {
+  inicioSesion,
+  registroUsuario,
+  PersistenciaSesion,
+  cierreSesion,
+  actualizarPerfil,
+  usuarioParticular,
+};

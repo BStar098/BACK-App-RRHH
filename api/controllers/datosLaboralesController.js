@@ -12,9 +12,6 @@ const crearDatosLaborales = async (req, res) => {
 
     const equipo = await Equipo.findOne({ where: { nombre } });
     if (!equipo) throw "Equipo no registrado";
-
-    // Promise.all([usuario, oficina, equipo])
-    // if (!usuario && !oficina && !equipo) throw "Usuario, Oficina o Equipo no registrado";
     
     const datos = await DatosLaborales.create(req.body);
     
