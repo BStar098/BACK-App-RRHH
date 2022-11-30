@@ -16,7 +16,7 @@ Novedad.init(
     autorizadoPor: { type: S.TEXT },
     estado: { type: S.STRING, defaultValue: "Pendiente" },
   },
-  {
+  { 
     sequelize: db,
     modelName: "novedades",
   }
