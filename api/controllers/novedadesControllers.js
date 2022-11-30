@@ -1,5 +1,4 @@
-const { where } = require("sequelize");
-const { Usuarios, Novedad } = require("../models");
+const { Usuarios, Novedad, Equipo } = require("../models");
 const { filtroNovedad, filtroUsuarios } = require("../utils/filtros");
 
 const crearNovedades = async (req, res) => {
@@ -35,9 +34,9 @@ const historialNovedadesUsuario = async (req, res) => {
     const usuario = await Usuarios.findByPk(id);
     if (!usuario) throw "Usuario no existente";
 
-    const novedades = await Usuarios.findAll({ where: { id }, include: {model: Novedad}});
+    const usuarioYNovedades = await Usuarios.findOne({ where: { id }, include: {model: Novedad}});
 
-    res.send(filtroUsuarios(novedades));
+    res.send(usuarioYNovedades);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -45,7 +44,7 @@ const historialNovedadesUsuario = async (req, res) => {
 
 const todasLasNovedades = async (req, res) => {
   try {
-    const allNovedades = await Novedad.findAll({include: {model: Usuarios}});
+    const allNovedades = await Novedad.findAll({include: {model: Usuarios, include: {model: Equipo}}});
 
     res.send(filtroNovedad(allNovedades));
   } catch (error) {
