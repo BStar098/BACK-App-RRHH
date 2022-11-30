@@ -50,7 +50,4 @@ const validacionActualizacionNovedad = [
   },
 ];
 
-module.exports = {
-  validacionCreacionNovedades,
-  validacionActualizacionNovedad,
-};
+module.exports = {validacionCreacionNovedades, validacionActualizacionNovedad};

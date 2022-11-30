@@ -1,11 +1,12 @@
 const express = require("express");
 const { crearDatosLaborales, actualizarDatosLaborales } = require("../controllers/datosLaboralesController");
+const { validacionCreacionYActualizacionDatosLaborales } = require("../validator/datosLaborales");
 const routesDatosLaborales = express();
 
 //Crear Datos Laborales
-routesDatosLaborales.post("/", crearDatosLaborales );
+routesDatosLaborales.post("/",validacionCreacionYActualizacionDatosLaborales, crearDatosLaborales );
 
 //actualizar Datos Laborales de Un Usuario
-routesDatosLaborales.put("/:idDatosLaborales", actualizarDatosLaborales);
+routesDatosLaborales.put("/:idDatosLaborales",validacionCreacionYActualizacionDatosLaborales, actualizarDatosLaborales);
 
 module.exports = routesDatosLaborales;

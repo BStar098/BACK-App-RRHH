@@ -1,4 +1,4 @@
-const { Asistencia } = require("../models");
+const { Asistencia, Usuarios } = require("../models");
 
 const crearAsistencia = async (req, res) => {
   const { usuarioId, datosAsistencia } = req.body;
@@ -15,6 +15,7 @@ const crearAsistencia = async (req, res) => {
     }
   } catch (error) {
     throw "No se ha podido crear la asistencia";
+
   }
 };
 

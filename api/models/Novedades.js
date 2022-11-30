@@ -13,6 +13,7 @@ Novedad.init(
     cantidadHoras: { type: S.INTEGER },
     observacion: { type: S.TEXT },
     certificado: { type: S.TEXT },
+    autorizadoPor: { type: S.TEXT },
     estado: { type: S.STRING, defaultValue: "Pendiente" },
   },
   {
