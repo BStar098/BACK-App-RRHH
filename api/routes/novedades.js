@@ -1,17 +1,18 @@
 const express = require("express");
 const routesNovedades = express();
 const { crearNovedades, traerNovedad, actualizarNovedad, historialNovedadesUsuario } = require("../controllers/novedadesControllers");
+const { validacionCreacionNovedades, validacionActualizacionNovedad } = require("../validator/novedades");
 
 //Crear una novedad
-routesNovedades.post("/", crearNovedades);
+routesNovedades.post("/",validacionCreacionNovedades, crearNovedades);
 
 //Traer una novedad en especifico
 routesNovedades.get("/una/:idNovedad", traerNovedad);
 
-//Traer usuario y sus novedades
+//Traer historial de novedades de usuario
 routesNovedades.get("/:idUsuario", historialNovedadesUsuario);
 
 //Actualizar el estado de la novedad
-routesNovedades.put("/:idNovedad", actualizarNovedad);
+routesNovedades.put("/:idNovedad",validacionActualizacionNovedad, actualizarNovedad);
 
 module.exports = routesNovedades;

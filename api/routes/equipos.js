@@ -1,18 +1,19 @@
 const express = require("express");
-const { crearEquipo, actualizarEquipo, traerEquipos, traerEquipo } = require("../controllers/equiposController");
+const { crearEquipo, actualizarEquipo, traerEquipos, integrantesEquipo } = require("../controllers/equiposController");
+const { validacionCreacionYActualizacionEquipo } = require("../validator/equipos");
 const routesEqipos = express();
 
 //Crear un equipo
-routesEqipos.post("/", crearEquipo);
+routesEqipos.post("/",validacionCreacionYActualizacionEquipo, crearEquipo);
 
 //Actualizar equipo
-routesEqipos.put("/:idEquipo", actualizarEquipo);
+routesEqipos.put("/:idEquipo",validacionCreacionYActualizacionEquipo, actualizarEquipo);
 
 //Traer equipos
 routesEqipos.get("/", traerEquipos);
 
-//Traer equipo y sus integrantes del equipo
-routesEqipos.get("/:idEquipo", traerEquipo);
+//Traer integrantes de un equipo
+routesEqipos.get("/:idEquipo", integrantesEquipo);
 
 
 module.exports = routesEqipos;
