@@ -2,16 +2,20 @@ const { Asistencia, Usuarios } = require("../models");
 
 const crearAsistencia = async (req, res) => {
   const { usuarioId, datosAsistencia } = req.body;
+  console.log(datosAsistencia);
   try {
-    const usuario = await Usuarios.findOne({ where: { id: usuarioId } });
-    if (!usuario) throw "Usuario no registrado";
-
-    const asistencia = await Asistencia.create(datosAsistencia);
-
-    asistencia.setUsuario(usuarioId);
-    res.send(asistencia);
+    if (
+      await Asistencia.verificarAsistencia(usuarioId, datosAsistencia.fecha)
+    ) {
+      res.sendStatus(401);
+    } else {
+      const asistencia = await Asistencia.create(datosAsistencia);
+      asistencia.setUsuario(usuarioId);
+      res.send(asistencia);
+    }
   } catch (error) {
-    res.status(400).send(error);
+    throw "No se ha podido crear la asistencia";
+
   }
 };
 
