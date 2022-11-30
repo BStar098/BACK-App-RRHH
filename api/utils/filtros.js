@@ -66,7 +66,11 @@ const filtroNovedad = (array) =>{
     observacion: obj.observacion,
     certificado: obj.certificado,
     autorizadoPor: obj.autorizadoPor,
-    usuario: perfil(obj.usuario),
+    estado: obj.estado,
+    usuario: {
+      perfil: perfil(obj.usuario),
+      equipo: obj.usuario.equipo
+    },
   }))
 }
 
