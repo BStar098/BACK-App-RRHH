@@ -57,7 +57,29 @@ const filtroUsuarios = (array) => {
     equipo: obj.equipo,
     oficina: obj.oficina,
     datosLaborale: obj.datosLaborale,
+
   }));
 };
 
-module.exports = { perfilCompleto, perfil, filtroUsuarios };
+
+const filtroNovedad = (array) =>{
+  return array.map((obj) => ({
+    id: obj.id,
+    tipoDeNovedad: obj.tipoDeNovedad,
+    fecha: obj.fecha,
+    fechaDeInicio: obj.fechaDeInicio,
+    fechaDeFin: obj.fechaDeFin,
+    cantidadDias: obj.cantidadDias,
+    cantidadHoras: obj.cantidadHoras,
+    observacion: obj.observacion,
+    certificado: obj.certificado,
+    autorizadoPor: obj.autorizadoPor,
+    estado: obj.estado,
+    usuario: {
+      perfil: perfil(obj.usuario),
+      equipo: obj.usuario.equipo
+    },
+  }))
+}
+
+module.exports = { perfilCompleto, perfil, filtroUsuarios, filtroNovedad };
