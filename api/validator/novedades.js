@@ -43,7 +43,7 @@ const validacionActualizacionNovedad = [
     .withMessage("El campo no puede estar vacio")
     .contains()
     .withMessage("El campo debe tener contenido")
-    .isIn(["aprobado", "rechazado"])
+    .isIn(["aprobado", "rechazado", 'pendiente'])
     .withMessage("Estado no determinado"),
   (req, res, next) => {
     validacionResultado(req, res, next);
