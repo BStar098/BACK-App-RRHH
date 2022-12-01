@@ -2,7 +2,6 @@ const { Asistencia, Usuarios } = require("../models");
 
 const crearAsistencia = async (req, res) => {
   const { usuarioId, datosAsistencia } = req.body;
-  console.log(datosAsistencia);
   try {
     if (
       await Asistencia.verificarAsistencia(usuarioId, datosAsistencia.fecha)
