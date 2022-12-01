@@ -14,7 +14,6 @@ const crearAsistencia = async (req, res) => {
     }
   } catch (error) {
     throw "No se ha podido crear la asistencia";
-
   }
 };
 
@@ -27,4 +26,16 @@ const historialDeAsistencias = async (req, res) => {
   }
 };
 
-module.exports = { crearAsistencia, historialDeAsistencias };
+const validarIngreso = async (req, res) => {
+  try {
+    const asistenciasDiarias = await Asistencia.findAll({ where: req.body });
+    console.log(asistenciasDiarias.length)
+    if (asistenciasDiarias.length >= 2) {
+      res.sendStatus(400);
+    } else res.sendStatus(200);
+  } catch (error) {
+    throw new Error("La cantidad máxima de fichajes diarios es de 2(dos)");
+  }
+};
+
+module.exports = { crearAsistencia, historialDeAsistencias, validarIngreso };

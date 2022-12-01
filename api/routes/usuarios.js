@@ -21,7 +21,8 @@ routesUsuarios.get("/uno/:IdUsuario", usuarioParticular);
 // Actualizar Perfil usuario
 routesUsuarios.put("/:idUsuario" , validacionActualizacion , actualizarPerfil);
 
-routesUsuarios.put("/activo/:idUsuario", actualizarEstado);
+// Validar que la cantidad de fichajes del día sea menor a 3.
+routesUsuarios.post("/activo/:idUsuario", actualizarEstado);
 
 
 module.exports = routesUsuarios;
