@@ -95,12 +95,12 @@ const actualizarPerfil = async (req, res) => {
 };
 
 const actualizarEstado = async (req, res) => {
-  console.log(req.body);
   try {
     const id = req.params.idUsuario;
     const { activo } = req.body;
     const validacionUsuario = await Usuarios.findByPk(id);
     if (!validacionUsuario) throw "Usuario no existe";
+    
     await Usuarios.update(
       { activo },
       {
