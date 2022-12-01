@@ -80,6 +80,7 @@ const actualizarPerfil = async (req, res) => {
   try {
     const id = req.params.idUsuario;
     const validacionUsuario = await Usuarios.findByPk(id);
+    ç;
     if (!validacionUsuario) throw "Usuario no existe";
 
     const perfilActualizado = await Usuarios.update(req.body, {
@@ -93,6 +94,25 @@ const actualizarPerfil = async (req, res) => {
   }
 };
 
+const actualizarEstado = async (req, res) => {
+  console.log(req.body);
+  try {
+    const id = req.params.idUsuario;
+    const { activo } = req.body;
+    const validacionUsuario = await Usuarios.findByPk(id);
+    if (!validacionUsuario) throw "Usuario no existe";
+    await Usuarios.update(
+      { activo },
+      {
+        where: { id },
+      }
+    );
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
   inicioSesion,
   registroUsuario,
@@ -100,4 +120,5 @@ module.exports = {
   cierreSesion,
   actualizarPerfil,
   usuarioParticular,
+  actualizarEstado,
 };
