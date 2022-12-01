@@ -20,6 +20,7 @@ const validacionCreacionYActualizacionDatosLaborales = [
     .withMessage("El campo no puede estar vacio")
     .contains()
     .withMessage("El campo debe tener contenido")
+    .toLowerCase()
     .isIn([
       "empleado",
       "coordinador regional",
