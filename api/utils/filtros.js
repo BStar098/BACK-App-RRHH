@@ -19,6 +19,13 @@ const perfilCompleto = (obj) => {
       horarioLaboral: obj.datosLaborale.horarioLaboral,
       observaciones: obj.datosLaborale.observaciones,
     },
+    perfilBasico: {
+      Nombre: `${obj.nombre} ${obj.apellido}`,
+      Puesto: obj.datosLaborale.puesto,
+      Oficina: obj.oficina.pais,
+      Turno: obj.datosLaborale.turno,
+      Estado: obj.activo,
+    },
   };
 };
 
@@ -35,7 +42,7 @@ const perfil = (obj) => ({
   eMail: obj.eMail,
 });
 
-const filtroUsuarios = (array) =>{
+const filtroUsuarios = (array) => {
   return array.map((obj) => ({
     id: obj.id,
     tipo: obj.tipo,
@@ -50,9 +57,10 @@ const filtroUsuarios = (array) =>{
     equipo: obj.equipo,
     oficina: obj.oficina,
     datosLaborale: obj.datosLaborale,
-    novedades: obj.novedades,
-  }))
-}
+
+  }));
+};
+
 
 const filtroNovedad = (array) =>{
   return array.map((obj) => ({

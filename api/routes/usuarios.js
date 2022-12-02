@@ -1,6 +1,6 @@
 const express = require("express");
 const routesUsuarios = express();
-const { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, usuarioParticular, actualizarPerfil } = require("../controllers/usuariosControllers");
+const { inicioSesion, registroUsuario, PersistenciaSesion, cierreSesion, usuarioParticular, actualizarPerfil, actualizarEstado } = require("../controllers/usuariosControllers");
 const { validacionRegistro,validacionInicioSesion, validacionActualizacion } = require("../validator/users");
 
 //Registrar un nuevo usuario
@@ -19,7 +19,10 @@ routesUsuarios.get("/cierresesion", cierreSesion);
 routesUsuarios.get("/uno/:IdUsuario", usuarioParticular);
 
 // Actualizar Perfil usuario
-routesUsuarios.put("/:idUsuario", validacionActualizacion, actualizarPerfil);
+routesUsuarios.put("/:idUsuario" , validacionActualizacion , actualizarPerfil);
+
+// Validar que la cantidad de fichajes del día sea menor a 3.
+routesUsuarios.post("/activo/:idUsuario", actualizarEstado);
 
 
 module.exports = routesUsuarios;

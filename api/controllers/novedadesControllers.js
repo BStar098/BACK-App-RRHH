@@ -1,5 +1,5 @@
 const { Usuarios, Novedad, Equipo } = require("../models");
-const { filtroNovedad, filtroUsuarios } = require("../utils/filtros");
+const { filtroNovedad } = require("../utils/filtros");
 
 const crearNovedades = async (req, res) => {
   try {

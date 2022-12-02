@@ -8,7 +8,6 @@ class Asistencia extends S.Model {
     asistencias.map((asistencia) => {
       if (asistencia.fecha.startsWith(fecha)) {
         fichajesDeSalida++;
-        console.log(fichajesDeSalida)
       }
     });
     return fichajesDeSalida >= 2;

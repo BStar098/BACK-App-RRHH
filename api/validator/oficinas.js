@@ -9,9 +9,7 @@ const validacionCreacionYActualizacionOficina = [
     .isEmpty()
     .withMessage("El campo no puede estar vacio")
     .contains()
-    .withMessage("El campo debe tener contenido")
-    .isAlpha()
-    .withMessage("El campo debe tener solo letras"),
+    .withMessage("El campo debe tener contenido"),
   check("cuidad")
     .exists()
     .withMessage("El campo debe existir")
@@ -19,9 +17,7 @@ const validacionCreacionYActualizacionOficina = [
     .isEmpty()
     .withMessage("El campo no puede estar vacio")
     .contains()
-    .withMessage("El campo debe tener contenido")
-    .isAlpha()
-    .withMessage("El campo debe tener solo letras"),
+    .withMessage("El campo debe tener contenido"),
   check("direccion")
     .exists()
     .withMessage("El campo debe existir")
