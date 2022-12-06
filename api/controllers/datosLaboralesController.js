@@ -3,9 +3,9 @@ const Usuario = require("../models/Usuarios");
 const { datosLaborales } = require("../utils/filtros");
 
 const crearDatosLaborales = async (req, res) => {
+  console.log(req.body)
   try {
     const { eMail, pais, nombre } = req.body;
-
     const usuario = await Usuarios.findOne({ where: { eMail } });
     if (!usuario) throw "Usuario no registrado";
 
@@ -16,7 +16,7 @@ const crearDatosLaborales = async (req, res) => {
     if (!equipo) throw "Equipo no registrado";
 
     const datos = await DatosLaborales.create(req.body);
-
+    console.log('llege aca', datos)
     datos.setUsuario(usuario);
     oficina.addUsuario(usuario);
     equipo.addUsuario(usuario);
