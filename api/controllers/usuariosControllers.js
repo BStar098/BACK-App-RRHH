@@ -1,6 +1,12 @@
 const { generadorToken, validacionToken } = require("../config/token");
 const { Usuarios, DatosLaborales, Equipo, Oficina } = require("../models");
-const { perfilCompleto, perfil } = require("../utils/filtros");
+const {
+  perfilCompleto,
+  perfil,
+  filtroUsuarios,
+  perfilPorMail,
+  nombreYemail,
+} = require("../utils/filtros");
 
 const registroUsuario = async (req, res) => {
   try {
@@ -76,19 +82,43 @@ const usuarioParticular = async (req, res) => {
   }
 };
 
+const usuarioPorEmail = async (req, res) => {
+  try {
+    const eMail = req.params.eMail;
+    const usuarioYDatosLaborales = await Usuarios.findOne({
+      where: { eMail },
+      include: [
+        { model: DatosLaborales },
+        { model: Equipo },
+        { model: Oficina },
+      ],
+    });
+    if (!usuarioYDatosLaborales) throw "Usuario no registrado";
+    res.send(perfilPorMail(usuarioYDatosLaborales));
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+const todosLosUsuarios = async (req, res) => {
+  const datos = await Usuarios.findAll({
+    include: [{ model: DatosLaborales }],
+  });
+  if (!datos) throw "Usuarios no encontrado";
+  res.send(nombreYemail(datos));
+};
 const actualizarPerfil = async (req, res) => {
   try {
     const id = req.params.idUsuario;
+    console.log(req.body);
     const validacionUsuario = await Usuarios.findByPk(id);
-    ç;
     if (!validacionUsuario) throw "Usuario no existe";
-
+    console.log("validacion", validacionUsuario);
     const perfilActualizado = await Usuarios.update(req.body, {
-      where: { id },
+      where: { id: id },
       returning: true,
     });
-
-    res.send(perfil(perfilActualizado[1][0]));
+    console.log("perfilActualizado", perfilActualizado);
+    res.send(perfil(perfilActualizado));
   } catch (error) {
     res.status(400).send(error);
   }
@@ -121,4 +151,6 @@ module.exports = {
   actualizarPerfil,
   usuarioParticular,
   actualizarEstado,
+  usuarioPorEmail,
+  todosLosUsuarios,
 };

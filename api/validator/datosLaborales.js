@@ -56,9 +56,7 @@ const validacionCreacionYActualizacionDatosLaborales = [
     .isEmpty()
     .withMessage("El campo no puede estar vacio")
     .contains()
-    .withMessage("El campo debe tener contenido")
-    .isAlpha()
-    .withMessage("El campo debe tener solo letras"),
+    .withMessage("El campo debe tener contenido"),
   check("observaciones")
     .exists()
     .withMessage("El campo debe existir")

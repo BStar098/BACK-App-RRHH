@@ -1,9 +1,11 @@
 const { DatosLaborales, Usuarios, Oficina, Equipo } = require("../models");
+const Usuario = require("../models/Usuarios");
+const { datosLaborales } = require("../utils/filtros");
 
 const crearDatosLaborales = async (req, res) => {
+  console.log(req.body)
   try {
     const { eMail, pais, nombre } = req.body;
-
     const usuario = await Usuarios.findOne({ where: { eMail } });
     if (!usuario) throw "Usuario no registrado";
 
@@ -12,9 +14,9 @@ const crearDatosLaborales = async (req, res) => {
 
     const equipo = await Equipo.findOne({ where: { nombre } });
     if (!equipo) throw "Equipo no registrado";
-    
+
     const datos = await DatosLaborales.create(req.body);
-    
+    console.log('llege aca', datos)
     datos.setUsuario(usuario);
     oficina.addUsuario(usuario);
     equipo.addUsuario(usuario);
@@ -27,12 +29,15 @@ const crearDatosLaborales = async (req, res) => {
 const actualizarDatosLaborales = async (req, res) => {
   try {
     const id = req.params.idDatosLaborales;
-    const validacionDatos = await DatosLaborales.findByPk(id)
-    if(!validacionDatos) throw "Dato laboral no existe"
+    const validacionNovedad = await DatosLaborales.findByPk(id);
+    if (!validacionNovedad) throw "Usuario sin datos laborales";
 
-    const datosActualizados = await DatosLaborales.update(req.body, { where: { id }, returning: true });
+    const datosLabAct = await DatosLaborales.update(req.body, {
+      where: { id },
+      returning: true,
+    });
 
-    res.send(datosActualizados[1][0]);
+    res.send(datosLabAct[1][0]);
   } catch (error) {
     res.status(400).send(error);
   }
