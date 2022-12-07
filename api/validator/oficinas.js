@@ -10,7 +10,7 @@ const validacionCreacionYActualizacionOficina = [
     .withMessage("El campo no puede estar vacio")
     .contains()
     .withMessage("El campo debe tener contenido"),
-  check("cuidad")
+  check("ciudad")
     .exists()
     .withMessage("El campo debe existir")
     .not()

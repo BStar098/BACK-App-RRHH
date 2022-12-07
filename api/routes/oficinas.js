@@ -4,7 +4,7 @@ const { validacionCreacionYActualizacionOficina } = require("../validator/oficin
 const routesOficinas = express();
 
 //crear Oficina
-routesOficinas.post("/", crearOficina);
+routesOficinas.post("/", validacionCreacionYActualizacionOficina, crearOficina);
 
 //Actualizar oficina
 routesOficinas.put("/:idOficina",validacionCreacionYActualizacionOficina, actualizarOficina);
