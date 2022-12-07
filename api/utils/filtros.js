@@ -22,6 +22,7 @@ const perfilCompleto = (obj) => {
     },
     perfilBasico: {
       Nombre: `${obj.nombre} ${obj.apellido}`,
+      Email: obj.eMail,
       Puesto: obj.datosLaborale.puesto,
       Oficina: obj.oficina.pais,
       Turno: obj.datosLaborale.turno,

@@ -2,6 +2,7 @@ const { Equipo, Usuarios, Oficina, DatosLaborales } = require("../models");
 const { filtroUsuarios } = require("../utils/filtros");
 
 const crearEquipo = async (req, res) => {
+
   try {
     const { nombre } = req.body;
     const validacionEquipo = await Equipo.findOne({ where: { nombre } });
